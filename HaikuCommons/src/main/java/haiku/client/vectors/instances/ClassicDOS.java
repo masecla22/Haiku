@@ -55,7 +55,7 @@ public class ClassicDOS extends AttackVector {
 	public void stop() {
 		// Mark ending
 		this.running.set(false);
-		
+
 		// Wait 6 seconds for threads to finish
 		try {
 			this.threads.awaitTermination(6, TimeUnit.SECONDS);
