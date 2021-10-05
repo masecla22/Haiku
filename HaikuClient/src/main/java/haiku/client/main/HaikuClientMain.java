@@ -20,7 +20,6 @@ public class HaikuClientMain {
 
 		DuplexConnection conn = DuplexConnection.create(hostname, Integer.parseInt(port),
 				PacketDictionaryBuilder.getDictionary(), false);
-
 		ConsoleUtils.clearConsole();
 		System.out.println("Connected to server... ");
 

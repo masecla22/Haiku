@@ -1,6 +1,7 @@
 package haiku.client.vectors;
 
 import java.util.HashMap;
+import java.util.List;
 
 public abstract class AttackVector {
 	public abstract void start(String host, int port, HashMap<String, String> options);
@@ -9,6 +10,5 @@ public abstract class AttackVector {
 
 	public abstract HashMap<String, String> getStatistics();
 
-	@SuppressWarnings("unchecked")
-	public abstract void displayStatistics(HashMap<String, String>... hashMaps);
+	public abstract void displayStatistics(List<HashMap<String, String>> hashMaps);
 }

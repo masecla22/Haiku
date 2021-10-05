@@ -4,14 +4,20 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class ConsoleUtils {
+	
+	private static Scanner s;
+	
 	public static int buildMenu(String... strings) {
 		int i = 1;
 		for (String s : strings)
 			System.out.println(i++ + ". " + s);
-		@SuppressWarnings("resource")
-		Scanner s = new Scanner(System.in);
+		s = new Scanner(System.in);
 		int selected = s.nextInt();
 		return selected;
+	}
+	
+	public static Scanner getScanner() {
+		return s;
 	}
 
 	public static void clearConsole() {

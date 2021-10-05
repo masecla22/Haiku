@@ -23,6 +23,22 @@ public class ClientConnectionManager {
 	private AtomicBoolean running = new AtomicBoolean(false);
 	private Thread thr = null;
 
+	private OngoingAttacksManager ongoingAttacks;
+	private CentralDataHubCollection dataCollector;
+
+	public ClientConnectionManager() {
+		this.ongoingAttacks = new OngoingAttacksManager(this);
+		this.dataCollector = new CentralDataHubCollection(ongoingAttacks);
+	}
+
+	public CentralDataHubCollection getDataCollector() {
+		return dataCollector;
+	}
+
+	public OngoingAttacksManager getOngoingAttacks() {
+		return ongoingAttacks;
+	}
+
 	private int port = 9999;
 
 	public void startListener() {
@@ -47,6 +63,7 @@ public class ClientConnectionManager {
 
 						// Register listeners to connection
 						conn.registerListener(new PingImplier(this, toAlloc));
+						this.dataCollector.registerListenerToConnection(conn);
 					}
 				}
 			} catch (Exception e) {

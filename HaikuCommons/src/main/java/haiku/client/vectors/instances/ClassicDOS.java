@@ -3,6 +3,7 @@ package haiku.client.vectors.instances;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -71,9 +72,8 @@ public class ClassicDOS extends AttackVector {
 		return res;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public void displayStatistics(HashMap<String, String>... hashMaps) {
+	public void displayStatistics(List<HashMap<String, String>> hashMaps) {
 
 		int totalRequests = 0;
 		int bandwidth = 0;
